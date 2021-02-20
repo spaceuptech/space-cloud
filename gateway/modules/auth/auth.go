@@ -21,6 +21,7 @@ type Module struct {
 	nodeID           string
 	jwt              *jwtUtils.JWT
 	crud             model.CrudAuthInterface
+	graphql          model.GraphQLAuthInterface
 	fileRules        []*config.FileRule
 	funcRules        config.Services
 	eventingRules    map[string]*config.Rule
@@ -73,4 +74,11 @@ func (m *Module) IsTokenInternal(ctx context.Context, token string) error {
 		}
 	}
 	return errors.New("token has not been created internally")
+}
+
+// SetGraphql sets graphql in auth module
+func (m *Module) SetGraphql(g model.GraphQLAuthInterface) {
+	m.Lock()
+	defer m.Unlock()
+	m.graphql = g
 }

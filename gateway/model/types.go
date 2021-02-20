@@ -21,6 +21,11 @@ type CrudAuthInterface interface {
 	Read(ctx context.Context, dbAlias, col string, req *ReadRequest, params RequestParams) (interface{}, *SQLMetaData, error)
 }
 
+// GraphQLAuthInterface is an interface consisting of functions of graphql module used by auth module
+type GraphQLAuthInterface interface {
+	ExecGraphQLQuery(ctx context.Context, req *GraphQLRequest, token string, cb GraphQLCallback)
+}
+
 // SchemaEventingInterface is an interface consisting of functions of schema module used by eventing module
 type SchemaEventingInterface interface {
 	SchemaModifyAll(ctx context.Context, dbAlias, logicalDBName string, dbSchemas config.DatabaseSchemas) error
